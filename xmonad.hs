@@ -258,7 +258,7 @@ main = xmonad defaults
 --
 -- No need to modify this.
 --
-defaults = def {
+defaults = defaultConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
