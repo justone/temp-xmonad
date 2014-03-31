@@ -116,6 +116,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
+    , ((modm .|. controlMask, xK_l   ), spawn "xscreensaver-command -lock")
+
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
@@ -323,6 +325,8 @@ help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     "mod-Shift-q  Quit xmonad",
     "mod-q        Restart xmonad",
     "mod-[1..9]   Switch to workSpace N",
+    "",
+    "mod-Control  Start screensaver",
     "",
     "-- Workspaces & screens",
     "mod-Shift-[1..9]   Move client to workspace N",
