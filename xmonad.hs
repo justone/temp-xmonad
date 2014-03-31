@@ -8,8 +8,6 @@
 --
 
 import XMonad
-import XMonad.Hooks.ScreenCorners
-import XMonad.Actions.CycleWS
 import Data.Monoid
 import System.Exit
 
@@ -229,8 +227,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook e = do
-    screenCornerEventHook e
+myEventHook = mempty
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -247,9 +244,8 @@ myLogHook = return ()
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
 --
--- Set up screen corners
-myStartupHook = do
-    addScreenCorners [ (SCLowerRight, spawn "xscreensaver-command -lock") ]
+-- By default, do nothing.
+myStartupHook = return ()
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
