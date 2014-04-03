@@ -10,6 +10,7 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import Graphics.X11.ExtraTypes.XF86
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -114,6 +115,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
     , ((modm .|. controlMask, xK_l   ), spawn "xscreensaver-command -lock")
+
+    -- audio controls
+    -- http://superuser.com/questions/389737/how-do-you-make-volume-keys-and-mute-key-work-in-xmonad
+    , ((0, xF86XK_AudioLowerVolume   ), spawn "amixer set Master 2-")
+    , ((0, xF86XK_AudioRaiseVolume   ), spawn "amixer set Master 2+")
+    -- TODO: make it so that I don't have to hit mute twice to unmute
+    , ((0, xF86XK_AudioMute          ), spawn "amixer set Master toggle; amixer set Headphone toggle")
 
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
