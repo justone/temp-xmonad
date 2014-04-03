@@ -11,6 +11,7 @@ import XMonad
 import Data.Monoid
 import System.Exit
 import Graphics.X11.ExtraTypes.XF86
+import XMonad.Actions.UpdatePointer
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -242,7 +243,7 @@ myEventHook = mempty
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook = return ()
+myLogHook = updatePointer (Relative 0.5 0.5)
 
 ------------------------------------------------------------------------
 -- Startup hook
