@@ -12,6 +12,9 @@ import Data.Monoid
 import System.Exit
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.UpdatePointer
+import XMonad.Actions.PhysicalScreens
+import XMonad.Layout.IndependentScreens
+import Text.Regex.Posix ((=~))
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -55,6 +58,18 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 --
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#000099"
+
+selectWin x = do
+    nScreens <- countScreens
+    if nScreens == 1
+        then do windows $ W.greedyView x
+        else do
+            if x =~ "3"
+            then do
+                viewScreen 0
+            else do
+                viewScreen 1
+            windows $ W.greedyView x
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -142,12 +157,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     ++
 
     --
-    -- mod-[1..9], Switch to workspace N
+    -- mod-[1..9], Switch to "sticky" workspace N
     -- mod-shift-[1..9], Move client to workspace N
     --
-    [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    [((modm, k), selectWin (i))
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]]
+    ++
+    [((modm .|. shiftMask, k), windows $ W.shift i)
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]]
     ++
 
     --
