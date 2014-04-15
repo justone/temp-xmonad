@@ -145,6 +145,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --
     -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
 
+    -- switch to chat window/debug window
+    , ((modm,               xK_s     ), spawn "xdotool key w key 3 key m; sleep 0.1; xdotool key --clearmodifiers ctrl+meta+b; xdotool key --clearmodifiers 1")
+    , ((modm,               xK_d     ), spawn "xdotool key w key 3 key m; sleep 0.1; xdotool key --clearmodifiers ctrl+meta+b; xdotool key --clearmodifiers 2")
+
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
 
